@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication.apps.AuthenticationConfig',
     'corsheaders',
-    'course.apps.CourseConfig'
+    'course',
+    'played_hole'
 ]
 
 MIDDLEWARE = [
