@@ -20,7 +20,7 @@ def get_all_courses(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def user_courses(request):
+def create_course(request):
     if request.method == 'POST':
         serializer = CourseSerializer(data=request.data)
         if serializer.is_valid():
