@@ -4,7 +4,6 @@ from django.apps import apps
 from course.models import Course
 
 User = get_user_model()
-# Course = apps.get_model('course.Course')
 
 
 # Create your models here.
