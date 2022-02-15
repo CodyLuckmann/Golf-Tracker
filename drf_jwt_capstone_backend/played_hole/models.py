@@ -15,6 +15,6 @@ class PlayedHole(models.Model):
     par = models.IntegerField()
     strokes = models.IntegerField()
     putts = models.IntegerField()
-    driver_distance = models.IntegerField(null=True)
+    driver_distance = models.IntegerField(null=True, blank=True)
     fairway = models.BooleanField()
     
