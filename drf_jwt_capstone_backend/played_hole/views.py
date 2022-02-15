@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import PlayedHole
 from .serializers import PlayedHoleSerializer
 from django.contrib.auth.models import User
+from django.db.models import Sum
 
 # Create your views here.
 
@@ -52,4 +53,14 @@ def delete_played_hole(request, played_hole_id):
         played_hole = PlayedHole.objects.get(id=played_hole_id)
         played_hole.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_hole_by_date(request, dt):
+    if request.method == 'GET':
+        # // convert the string dt into a date object
+        # cvtDate = ???? "2022-02-16"
+        played_hole = PlayedHole.objects.filter(date=dt).aggregate(Sum('strokes'))
+        # serializer = PlayedHoleSerializer(played_hole, many=True)
+        return Response(played_hole)
     
