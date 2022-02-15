@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.create_played_hole),
     path('user/', views.get_played_hole_by_user),
     path('update/<int:played_hole_id>', views.update_played_hole),
-    path('delete/<int:played_hole_id>', views.delete_played_hole)
+    path('delete/<int:played_hole_id>', views.delete_played_hole),
+    path('date/<str:dt>', views.get_hole_by_date)
 ]
