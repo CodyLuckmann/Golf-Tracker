@@ -56,11 +56,26 @@ def delete_played_hole(request, played_hole_id):
     
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def get_hole_by_date(request, dt):
+def get_hole_by_date(request, dt, course_id):
     if request.method == 'GET':
         # // convert the string dt into a date object
         # cvtDate = ???? "2022-02-16"
-        played_hole = PlayedHole.objects.filter(date=dt).aggregate(Sum('strokes'))
+        played_hole = PlayedHole.objects.filter(course=course_id).filter(date=dt).aggregate(Sum('strokes'))
         # serializer = PlayedHoleSerializer(played_hole, many=True)
         return Response(played_hole)
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_total_putts(request, dt, course_id):
+    if request.method == 'GET':
+        played_hole = PlayedHole.objects.filter(course=course_id).filter(date=dt).aggregate(Sum('putts'))
+        return Response(played_hole)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_all_dates(request, course_id):
+    if request.method =='GET':
+        played_hole = PlayedHole.objects.filter(course=course_id).values('date').annotate(Sum('strokes'), Sum('putts'))
+        return Response(played_hole)
+    
     
